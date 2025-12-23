@@ -1,0 +1,567 @@
+/* ========== BASE STYLES ========== */
+:root {
+    --primary-blue: #4a6491;
+    --dark-blue: #2c3e50;
+    --sea-green: #2E8B57;
+    --dodger-blue: #1E90FF;
+    --dark-orange: #FF8C00;
+    --lime-green: #32CD32;
+    --light-gray: #f8f9fa;
+    --medium-gray: #e9ecef;
+    --text-dark: #495057;
+    --text-light: #6c757d;
+    --sidebar-width: 350px;
+    --sidebar-width-mobile: 300px;
+    --transition-speed: 0.3s;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    color: var(--text-dark);
+    overflow-x: hidden;
+}
+
+#map {
+    height: 100vh;
+    width: 100vw;
+    transition: margin-left var(--transition-speed) ease;
+}
+
+/* ========== SIDEBAR STYLES ========== */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background-color: #fff;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transition-speed) ease;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+    color: white;
+    padding: 20px;
+    position: relative;
+}
+
+.sidebar-header h1 {
+    margin: 0 0 5px 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.sidebar-header .subtitle {
+    margin: 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+.toggle-btn {
+    position: absolute;
+    top: 20px;
+    right: -15px;
+    background: white;
+    border: 2px solid var(--primary-blue);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dark-blue);
+    font-size: 0.8rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1001;
+}
+
+.sidebar-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* ========== MAP ADJUSTMENTS ========== */
+/* Desktop: Map starts with margin when sidebar is open */
+@media (min-width: 769px) {
+    #map {
+        margin-left: var(--sidebar-width);
+    }
+    
+    .sidebar.collapsed {
+        transform: translateX(calc(var(--sidebar-width) * -1));
+    }
+    
+    .sidebar:not(.collapsed) {
+        transform: translateX(0);
+    }
+    
+    .sidebar.collapsed ~ #map {
+        margin-left: 0;
+    }
+}
+
+/* ========== PROJECT COUNTER ========== */
+.project-counter {
+    background-color: var(--light-gray);
+    border-left: 4px solid var(--primary-blue);
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: var(--dark-blue);
+}
+
+.project-counter span {
+    font-size: 1.2rem;
+    color: var(--dark-blue);
+}
+
+/* ========== FILTER SECTION ========== */
+.filter-section {
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+.filter-section h3 {
+    margin-top: 0;
+    color: var(--dark-blue);
+    border-bottom: 2px solid var(--medium-gray);
+    padding-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.filter-group {
+    margin-bottom: 15px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+}
+
+.filter-select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    background-color: white;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 2px rgba(74, 100, 145, 0.2);
+}
+
+.clear-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--text-light);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.clear-btn:hover {
+    background-color: #5a6268;
+}
+
+/* ========== PROJECT LIST ========== */
+.project-list-section h3 {
+    color: var(--dark-blue);
+    margin-top: 0;
+    font-size: 1.1rem;
+}
+
+.project-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.project-card {
+    background: white;
+    border: 1px solid var(--medium-gray);
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-color: var(--primary-blue);
+}
+
+.project-card.active {
+    border-left: 4px solid var(--primary-blue);
+    background-color: var(--light-gray);
+}
+
+.project-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.project-title {
+    font-weight: 700;
+    color: var(--dark-blue);
+    margin: 0;
+    font-size: 1rem;
+}
+
+.project-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 8px;
+}
+
+.project-color-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.project-type {
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: capitalize;
+    display: inline-block;
+    margin: 8px 0;
+}
+
+.project-desc {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* ========== SIDEBAR FOOTER ========== */
+.sidebar-footer {
+    background-color: var(--light-gray);
+    padding: 15px 20px;
+    border-top: 1px solid var(--medium-gray);
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.social-links {
+    margin-top: 10px;
+}
+
+.social-links a {
+    color: var(--primary-blue);
+    margin: 0 10px;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.social-links a:hover {
+    color: var(--dark-blue);
+}
+
+/* ========== MOBILE MENU BUTTON ========== */
+.mobile-menu-btn {
+    display: none;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: white;
+    border: 2px solid var(--primary-blue);
+    border-radius: 4px;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--dark-blue);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+/* ========== CREDITS BUTTON ========== */
+.leaflet-control-custom-credits {
+    background-color: white;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    margin: 10px !important;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+}
+
+.leaflet-control-custom-credits:hover {
+    background-color: #f4f4f4;
+}
+
+/* ========== MODAL POPUP ========== */
+.credits-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.credits-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 25px;
+    border: 1px solid #888;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: black;
+}
+
+/* ========== LOADING & EMPTY STATES ========== */
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-light);
+    font-style: italic;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--text-light);
+}
+
+.empty-state i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #adb5bd;
+}
+
+/* ========== PIN FAMILY STYLES ========== */
+.custom-pin-icon {
+    background: transparent !important;
+    border: none !important;
+}
+
+.pin-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.pin-icon i {
+    transform: rotate(45deg);
+    color: white;
+    font-size: 14px;
+}
+
+.pin-icon:hover {
+    transform: rotate(-45deg) scale(1.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+/* Pin Colors */
+.parks-pin { background-color: var(--sea-green); }
+.transportation-pin { background-color: var(--dodger-blue); }
+.zoning-pin { background-color: var(--dark-orange); }
+.environmental-pin { background-color: var(--lime-green); }
+.default-pin { background-color: var(--primary-blue); }
+
+/* ========== CLUSTER STYLES ========== */
+.custom-cluster {
+    background: transparent !important;
+    border: none !important;
+}
+
+.pin-cluster {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.pin-cluster:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+.cluster-count {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.cluster-type {
+    font-size: 8px;
+    opacity: 0.9;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+/* ========== POPUP STYLES ========== */
+.leaflet-popup-content {
+    font-family: 'Lato', sans-serif;
+    min-width: 250px;
+}
+
+.leaflet-popup-content h3 {
+    color: var(--dark-blue);
+    margin-top: 0;
+    border-bottom: 2px solid var(--light-gray);
+    padding-bottom: 10px;
+}
+
+.popup-type {
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: capitalize;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+.skill-tag {
+    display: inline-block;
+    background-color: var(--medium-gray);
+    color: var(--text-dark);
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin: 2px 4px 2px 0;
+}
+
+.leaflet-popup-content .project-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background-color: var(--primary-blue);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: opacity 0.2s;
+}
+
+.leaflet-popup-content .project-link:hover {
+    opacity: 0.9;
+    color: white;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+/* Mobile */
+@media (max-width: 768px) {
+    .sidebar {
+        width: var(--sidebar-width-mobile);
+        transform: translateX(-100%);
+    }
+    
+    .sidebar:not(.collapsed) {
+        transform: translateX(0);
+    }
+    
+    .sidebar.collapsed {
+        transform: translateX(-100%);
+    }
+    
+    #map {
+        margin-left: 0 !important;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    .toggle-btn {
+        display: none;
+    }
+    
+    .sidebar-header h1 {
+        font-size: 1.3rem;
+    }
+    
+    .credits-content {
+        margin: 20% auto;
+        width: 95%;
+    }
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+    .mobile-menu-btn {
+        display: none;
+    }
+    
+    .toggle-btn {
+        display: flex;
+    }
+}
